@@ -26,7 +26,6 @@ html {
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
     cursor: grab;
 }
 #board:active {
@@ -43,4 +42,9 @@ footer {
     font-family: 'Courier New', Courier, monospace;
     color: rgba(255, 255, 255, 0.5);
     user-select: none;
+    z-index: 100;
+}
+footer a {
+    color: #d7f2ff;
+    cursor: pointer;
 }
