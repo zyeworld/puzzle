@@ -1,0 +1,46 @@
+:root {
+    --bg: #0f172a;
+
+    --p1-hover-stroke: #e1c185;
+    --p1-hover-fill: rgba(242, 204, 90, 0.08);
+    --p2-hover-stroke: #85bbe1;
+    --p2-hover-fill: rgba(90, 151, 242, 0.08);
+
+    --p1-stroke: #fffae4;
+    --p1-fill: #edc32d;
+    --p2-stroke: #d7f2ff;
+    --p2-fill: #3fb6d9;
+}
+html, body { margin: 0; padding: 0; }
+
+html {
+    background-color: var(--bg);
+}
+
+#board-container {
+    position: absolute;
+    inset: 0;
+}
+#board {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: grab;
+}
+#board:active {
+    cursor: grabbing;
+}
+
+
+footer {
+    position: absolute;
+    bottom: .5rem;
+    width: 100%;
+    text-align: center;
+
+    font-family: 'Courier New', Courier, monospace;
+    color: rgba(255, 255, 255, 0.5);
+    user-select: none;
+}
