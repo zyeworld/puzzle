@@ -1,11 +1,13 @@
 //@ts-nocheck
-import { draw_cell } from "./themes/standard.js";
+import { draw_cell } from "./themes/theme_manager.js";
 import { reset_transform, is_dragging } from "./mouse_manager.js";
 
 /**@type { HTMLElement } */
 const E_board = document.getElementById('board-container');
 /**@type { SVGGElement } */
 const E_cells = document.getElementById('cells');
+/**@type { SVGGElement } */
+const E_bg = document.getElementById('board-bg');
 
 /**@type {{ coord: number[]; player: number }[]} */
 let board = [];
@@ -56,23 +58,27 @@ function add_cell(i, j, status) {
     }
 
     // Add cell according to theme
-    E_cell = draw_cell(i, j);
+    const { cell, bg } = draw_cell(i, j);
 
     // Set classes and attributes
-    E_cell.classList.add('cell');
-    E_cell.dataset.i = i;
-    E_cell.dataset.j = j;
-    E_cell.dataset.status = status;
+    cell.classList.add('cell');
+    cell.dataset.i = i;
+    cell.dataset.j = j;
+    cell.dataset.status = status;
 
-    // Click listener
-    E_cell.addEventListener('click', function(e) {
+    // Click listener (check for class 'click' in it)
+    let E_click = cell.querySelector('click');
+    if (!E_click) E_click = cell;
+    
+    E_click.addEventListener('click', function(e) {
         // Only click when not dragging
         if (is_dragging()) return;
         if (this.dataset.status === Status.empty)
             play_cell(i, j);
     });
-
-    E_cells.appendChild(E_cell);
+    
+    E_cells.appendChild(cell);
+    if (bg) E_bg.appendChild(bg);
 }
 
 
@@ -84,8 +90,8 @@ function add_cell(i, j, status) {
  * Initialize the board
  */
 export function initialize_board() {
-    reset_transform();
     add_cell(0, 0, Status.empty);
+    reset_transform();
 }
 
 /**
@@ -138,20 +144,32 @@ export function cancel_cell(i, j) {
 
 
 /**
- * Refresh and draw the entire board
+ * Draw the given board
  * @param {{ coord: number[]; player: number }[]} _board 
  */
-export function draw(_board) {
-    board = _board;
+export function draw_board(_board) {
+    board = [];
 
     // Clear all cells
-    while (E_cells.hasChildNodes) {
+    while (E_cells.hasChildNodes()) {
         E_cells.removeChild(E_cells.lastChild);
     }
+    while (E_bg.hasChildNodes()) {
+        E_bg.removeChild(E_bg.lastChild);
+    }
 
-    if (board.length === 0) {
+    if (_board.length === 0) {
         initialize_board();
         return;
     }
-    board.forEach(play_cell);
+    _board.forEach(({ coord, player }) => {
+        play_cell(coord[0], coord[1]);
+    });
+}
+
+/**
+ * Redraw the current board
+ */
+export function redraw_board() {
+    draw_board(board);
 }

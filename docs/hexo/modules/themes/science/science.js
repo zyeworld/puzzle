@@ -1,18 +1,15 @@
 //@ts-nocheck
 
-/**@type { SVGGElement } */
-const E_cells = document.getElementById('cells');
-
 // Cells are hexagons
 const CELL_SIDE = 36;
 const CELL_W = Math.round(CELL_SIDE * Math.sqrt(3));
 const CELL_H = CELL_SIDE * 3 / 2;
 
-
 /**
  * Draw cell at (i, j)
  * @param {number} i 
  * @param {number} j 
+ * @returns {{ cell: Element, bg: Element? }}
  */
 export function draw_cell(i, j) {
     // Cells are represented in 2D coordinates (i, j)
@@ -35,5 +32,6 @@ export function draw_cell(i, j) {
     cell.setAttributeNS(null, 'points',
         `${x},${y - CELL_SIDE} ${x_max},${y_up} ${x_max},${y_down} ${x},${y + CELL_SIDE} ${x_min},${y_down} ${x_min},${y_up}`
     );
-    return cell;
+    
+    return { 'cell': cell, 'bg': null };
 }

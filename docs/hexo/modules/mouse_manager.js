@@ -3,7 +3,7 @@
 /**@type { HTMLElement } */
 const E_board = document.getElementById('board-container');
 /**@type { SVGGElement } */
-const E_cells = document.getElementById('cells');
+const E_board_transform = document.getElementById('board-transform');
 
 //////////////////////////////////
 //// Handling Board Transform ////
@@ -23,7 +23,7 @@ export function update_transform() {
     // View.x = Math.min(Math.max(View.x, x_min), x_max);
     // View.y = Math.min(Math.max(View.y, y_min), y_max);
 
-    E_cells.style.transform = `translate(${View.x}px, ${View.y}px) scale(${View.scale})`;
+    E_board_transform.style.transform = `translate(${View.x}px, ${View.y}px) scale(${View.scale})`;
 }
 /** Reset the transform of the board */
 export function reset_transform() {
@@ -65,7 +65,7 @@ document.addEventListener('wheel', function(e) {
             const mouse_y = (e.clientY - rect.top) - View.y;
             const mouse_x_scaled = mouse_x * scale_new / View.scale;
             const mouse_y_scaled = mouse_y * scale_new / View.scale;
-            console.log(mouse_x, mouse_y, mouse_x_scaled, mouse_y_scaled);
+            
             View.x += mouse_x - mouse_x_scaled;
             View.y += mouse_y - mouse_y_scaled;
             View.scale = scale_new;

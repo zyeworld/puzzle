@@ -1,22 +1,12 @@
-:root {
-    --bg: #0f172a;
-
-    --p1-hover-stroke: #e1c185;
-    --p1-hover-fill: rgba(242, 204, 90, 0.08);
-    --p2-hover-stroke: #85bbe1;
-    --p2-hover-fill: rgba(90, 151, 242, 0.08);
-
-    --p1-stroke: #fffae4;
-    --p1-fill: #edc32d;
-    --p2-stroke: #d7f2ff;
-    --p2-fill: #3fb6d9;
+/* Fonts */
+header, footer, header button {
+    font-family: 'Courier New', Courier, monospace;
 }
+
+
 html, body { margin: 0; padding: 0; }
 
-html {
-    background-color: var(--bg);
-}
-
+/* Board */
 #board-container {
     position: absolute;
     inset: 0;
@@ -32,15 +22,63 @@ html {
     cursor: grabbing;
 }
 
+/* Header (Menu) */
+header {
+    position: absolute;
+    z-index: 100;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%);
+    height: 2.5rem;
+    border-radius: 3rem;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    min-width: 50%;
 
+    background-color: rgba(255, 255, 255, 0.5);
+}
+header h2 {
+    margin: 0;
+    text-align: center;
+    line-height: 2.5rem;
+    font-size: 1rem;
+}
+header button {
+    font-size: 1rem;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+header button:first-of-type {
+    border-top-left-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+}
+header button:last-of-type {
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+header button:hover {
+    border: .25rem solid white;
+}
+
+
+/* Aside (Settings) */
+aside {
+    position: absolute;
+    z-index: 100;
+    right: 1rem;
+}
+
+
+/* Footer */
 footer {
     position: absolute;
     bottom: .5rem;
     width: 100%;
     text-align: center;
 
-    font-family: 'Courier New', Courier, monospace;
-    color: rgba(255, 255, 255, 0.5);
+    color: #cfcfcf;
     user-select: none;
     z-index: 100;
 }

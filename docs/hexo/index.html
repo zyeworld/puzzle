@@ -5,16 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HeXO</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./modules/themes/standard.css">
+    <!-- Themes -->
+    <link rel="stylesheet" href="./modules/themes/science/science.css">
+    <link rel="stylesheet" href="./modules/themes/omok/omok.css">
     <script type="module" src="./main.js"></script>
 </head>
 <body>
-    <div id="board-container" class="theme-standard turn-p1">
-
+    <main id="board-container" data-theme="science" class="turn-p1">
+        <header>
+            <h2>Theme</h2>
+            <button id="theme-science">Science</button>
+            <button id="theme-omok">Omok</button>
+        </header>
         <svg id="board">
-            <g id="cells"></g>
+            <defs>
+                <radialGradient id="omok-lines">
+                    <stop class="stop3" offset="90%" />
+                    <stop class="stop4" offset="100%" />
+                </radialGradient>
+            </defs>
+            <g id="board-transform">
+                <g id="board-bg"></g>
+                <g id="cells"></g>
+            </g>
         </svg>
-        <footer>Handmade my Zye | <a href="https://github.com/zyeworld/puzzle" target="_blank">GitHub</a></footer>
-    </div>
+        <footer>Handmade by Zye |
+            <a href="https://github.com/zyeworld/puzzle" target="_blank">GitHub</a>
+        </footer>
+    </main>
 </body>
 </html>

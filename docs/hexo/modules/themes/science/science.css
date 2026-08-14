@@ -1,0 +1,60 @@
+[data-theme="science"] {
+    --bg: #0f172a;
+    
+    --p1-hover-stroke: #e1c185;
+    --p1-hover-fill: rgba(242, 204, 90, 0.1);
+    --p2-hover-stroke: #85c5e1;
+    --p2-hover-fill: rgba(90, 201, 242, 0.1);
+
+    --p1-stroke: #fffae4;
+    --p1-fill: #edc32d;
+    --p2-stroke: #d7f2ff;
+    --p2-fill: #3fb6d9;
+
+    --empty-stroke: rgba(158, 197, 203, 0.1);
+    --empty-fill: rgba(45, 55, 80, 0.015);
+}
+
+[data-theme="science"] {
+    background-color: var(--bg);
+}
+
+/* Empty */
+[data-theme="science"] .cell {
+    stroke: var(--empty-stroke);
+    stroke-width: 1;
+    fill: var(--empty-fill);
+    transition: fill .12s;
+}
+
+/* Hovering */
+/* Anyone's turn */
+[data-theme="science"]:not(.dragging) .cell[data-status="0"]:hover {
+    stroke: var(--p1-hover-stroke);
+    stroke-width: 2.5;
+    fill: var(--p1-hover-fill);
+}
+/* P1's turn */
+[data-theme="science"]:not(.dragging).turn-p1 .cell[data-status="0"]:hover {
+    stroke: var(--p1-hover-stroke);
+    stroke-width: 2.5;
+    fill: var(--p1-hover-fill);
+}
+/* P2's turn */
+[data-theme="science"]:not(.dragging).turn-p2 .cell[data-status="0"]:hover {
+    stroke: var(--p2-hover-stroke);
+    stroke-width: 2.5;
+    fill: var(--p2-hover-fill);
+}
+
+/* Played */
+[data-theme="science"] .cell[data-status="1"] {
+    stroke: var(--p1-stroke);
+    stroke-width: 2;
+    fill: var(--p1-fill);
+}
+[data-theme="science"] .cell[data-status="2"] {
+    stroke: var(--p2-stroke);
+    stroke-width: 2;
+    fill: var(--p2-fill);
+}
