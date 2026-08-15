@@ -83,7 +83,7 @@ document.addEventListener('wheel', function(e) {
 //////////////////////
 
 let sensitivity = 1; // mouse sensitivity
-let drag_threshold = 5; // distance(px) mouse should travel before it becomes a drag
+let drag_threshold = 7; // distance(px) mouse should travel before it becomes a drag
 
 let mousedown_x = 0, mousedown_y = 0;
 let prev_view_x = 0, prev_view_y = 0; // View.x and View.y when mousedown

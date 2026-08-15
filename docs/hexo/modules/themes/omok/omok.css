@@ -39,7 +39,7 @@
 [data-theme="omok"] .cell {
     stroke: transparent;
     fill: transparent;
-    transition: fill .12s;
+    transition: fill .1s;
 }
 
 /* Hovering */

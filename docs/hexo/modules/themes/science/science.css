@@ -24,7 +24,7 @@
     stroke: var(--empty-stroke);
     stroke-width: 1;
     fill: var(--empty-fill);
-    transition: fill .12s;
+    transition: fill .1s;
 }
 
 /* Hovering */

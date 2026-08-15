@@ -5,7 +5,7 @@ const CELL_SIDE = 36;
 const CELL_W = Math.round(CELL_SIDE * Math.sqrt(3));
 const CELL_H = CELL_SIDE * 3 / 2;
 
-const CIRCLE_R = 30;
+const CIRCLE_R = 26;
 const LINE_R = 38;
 const LINE_R_SIN30 = LINE_R / 2;
 const LINE_R_SIN60 = Math.round(LINE_R * Math.sqrt(3) / 2);
