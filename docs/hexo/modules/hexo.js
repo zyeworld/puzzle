@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { draw_cell } from "./themes/theme_manager.js";
-import { reset_transform, is_dragging } from "./mouse_manager.js";
+import { reset_transform, is_dragging } from "./transform_manager.js";
 
 /**@type { HTMLElement } */
 const E_board = document.getElementById('board-container');
@@ -40,6 +40,31 @@ const Status = {
 function get_cell(i, j) {
     return E_cells.querySelector(`[data-i="${i}"][data-j="${j}"]`);
 }
+/**
+ * Get the bg element at coordinates (i, j)
+ * @param {number} i 
+ * @param {number} j 
+ * @returns {SVGElement?}
+ */
+function get_bg(i, j) {
+    return E_bg.querySelector(`[data-i="${i}"][data-j="${j}"]`);
+}
+
+/**
+ * Check if (i1, j1) and (i2, j2) are near (8 cells max)
+ * @param {number} i1 
+ * @param {number} j1 
+ * @param {number} i2 
+ * @param {number} j2 
+ * @returns {boolean}
+ */
+function is_near(i1, j1, i2, j2) {
+    const di = i2 - i1;
+    if (di < -8 || di > 8) return false;
+    const dj = j2 - j1;
+    if (dj < Math.max(-di-8, -8) || dj > Math.min(8-di, 8)) return false;
+    return true;
+}
 
 /**
  * Add a cell at coordinates (i, j)
@@ -65,6 +90,10 @@ function add_cell(i, j, status) {
     cell.dataset.i = i;
     cell.dataset.j = j;
     cell.dataset.status = status;
+    if (bg) {
+        bg.dataset.i = i;
+        bg.dataset.j = j;
+    }
 
     // Click listener (check for class 'click' in it)
     let E_click = cell.querySelector('click');
@@ -107,7 +136,7 @@ export function play_cell(i, j) {
     }
     board.push(move);
     
-    // Add empty cells in every direction at most 8 cells away
+    // Add empty cells in every direction, at most 8 cells away
     for (let di = -8; di <= 8; di++) {
         for (let dj = Math.max(-di-8, -8); dj <= Math.min(8-di, 8); dj++) {
             add_cell(i + di, j + dj, Status.empty);
@@ -135,11 +164,47 @@ export function cancel_cell(i, j) {
     const E_cell = get_cell(i, j);
     if (!E_cell) return;
 
+    // Remove the cell from the board db
+    const cell_index = board.findIndex(
+        ({ coord, player }) => (coord[0] === i && coord[1] === j)
+    );
+    if (cell_index !== -1) {
+        board.splice(cell_index, 1);
+    }
+
     // Empty the cell
     E_cell.dataset.status = Status.empty;
 
-    // Try removing it and the cells around
-    // TODO
+    // Try removing cells in every direction, at most 8 cells away
+    for (let di = -8; di <= 8; di++) {
+        for (let dj = Math.max(-di-8, -8); dj <= Math.min(8-di, 8); dj++) {
+
+            let should_delete = true;
+            for (const { coord, player } of board) {
+                if (is_near(i + di, j + dj, coord[0], coord[1])) {
+                    should_delete = false;
+                    break;
+                }
+            }
+            if (should_delete) {
+                get_cell(i + di, j + dj)?.remove();
+                get_bg(i + di, j + dj)?.remove();
+            }
+        }
+    }
+    if (board.length === 0) {
+        initialize_board();
+    }
+}
+
+/**
+ * Cancel the last move
+ */
+export function cancel_last_move() {
+    if (board.length === 0) return;
+
+    const coord = board[board.length - 1].coord;
+    cancel_cell(coord[0], coord[1]);
 }
 
 

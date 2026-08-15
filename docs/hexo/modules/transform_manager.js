@@ -97,7 +97,7 @@ export function is_dragging() {
     return dragging;
 }
 
-E_board.addEventListener('mousedown', function(e) {
+E_board.addEventListener('pointerdown', function(e) {
     e.preventDefault();
     const rect = E_board.getBoundingClientRect();
     
@@ -105,8 +105,8 @@ E_board.addEventListener('mousedown', function(e) {
     prev_view_x = View.x; prev_view_y = View.y;
     dragging = false;
 
-    document.addEventListener('mouseup', onMouseup);
-    document.addEventListener('mousemove', onMousemove);
+    document.addEventListener('pointerup', onMouseup);
+    document.addEventListener('pointermove', onMousemove);
 })
 
 /**
@@ -140,8 +140,8 @@ function onMousemove(e) {
 function onMouseup(e) {
     e.preventDefault();
     // stop moving when mouse button is released:
-    document.removeEventListener('mouseup', onMouseup);
-    document.removeEventListener('mousemove', onMousemove);
+    document.removeEventListener('pointerup', onMouseup);
+    document.removeEventListener('pointermove', onMousemove);
 
     E_board.classList.remove('dragging');
 
