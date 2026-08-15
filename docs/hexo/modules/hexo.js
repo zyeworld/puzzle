@@ -77,8 +77,10 @@ function add_cell(i, j, status) {
     let E_cell = get_cell(i, j);
     if (E_cell) {
         // Update if the status changed from empty to something else
-        if (status !== Status.empty)
+        if (status !== Status.empty) {
             E_cell.dataset.status = status;
+            E_cell.classList.add('last'); // Last played
+        }
         return;
     }
 
@@ -132,7 +134,7 @@ export function play_cell(i, j) {
     // TODO: check integrity
     const move = {
         coord: [i, j],
-        player: (board.length % 4 == 1 || board.length % 4 == 2) ? 2 : 1
+        player: (board.length % 4 === 1 || board.length % 4 === 2) ? 2 : 1
     }
     board.push(move);
     
@@ -148,10 +150,20 @@ export function play_cell(i, j) {
     // Set turn on HTML
     E_board.classList.remove('turn-p1');
     E_board.classList.remove('turn-p2');
-    if (board.length % 4 == 0 || board.length % 4 == 3) {
+    if (board.length % 4 === 0 || board.length % 4 === 3) {
         E_board.classList.add('turn-p1');
     } else {
         E_board.classList.add('turn-p2');
+    }
+
+    // Update "Last played" cell
+    // 1. Remove 3rd-to-last
+    if (board.length >= 3) {
+        get_cell(...board[board.length - 3].coord)?.classList.remove('last');
+    }
+    // 2. Remove 2nd-to-last if it's a different color
+    if (board.length >= 2 && (board.length % 4 === 0 || board.length % 4 === 2)) {
+        get_cell(...board[board.length - 2].coord)?.classList.remove('last');
     }
 }
 

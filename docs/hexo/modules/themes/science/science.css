@@ -1,18 +1,18 @@
 [data-theme="science"] {
     --bg: #0f172a;
+
+    --empty-stroke: rgba(55, 64, 84, 0.814);
+    --empty-fill: transparent;
     
     --p1-hover-stroke: #e1c185;
     --p1-hover-fill: rgba(242, 204, 90, 0.1);
     --p2-hover-stroke: #85c5e1;
     --p2-hover-fill: rgba(90, 201, 242, 0.1);
 
-    --p1-stroke: #fffae4;
     --p1-fill: #edc32d;
-    --p2-stroke: #d7f2ff;
     --p2-fill: #3fb6d9;
 
-    --empty-stroke: rgba(158, 197, 203, 0.1);
-    --empty-fill: rgba(45, 55, 80, 0.015);
+    --last-played-stroke: #fffae4;
 }
 
 [data-theme="science"] {
@@ -22,7 +22,7 @@
 /* Empty */
 [data-theme="science"] .cell {
     stroke: var(--empty-stroke);
-    stroke-width: 1;
+    stroke-width: 1.5;
     fill: var(--empty-fill);
     transition: fill .1s;
 }
@@ -49,12 +49,21 @@
 
 /* Played */
 [data-theme="science"] .cell[data-status="1"] {
-    stroke: var(--p1-stroke);
-    stroke-width: 2;
     fill: var(--p1-fill);
 }
 [data-theme="science"] .cell[data-status="2"] {
-    stroke: var(--p2-stroke);
-    stroke-width: 2;
     fill: var(--p2-fill);
+}
+
+/* Last move played */
+[data-theme="science"] .last {
+    stroke: var(--last-played-stroke);
+    stroke-width: 2.5;
+}
+
+/* Won */
+[data-theme="science"] .win {
+    stroke: var(--p2-stroke);
+    stroke-width: 3;
+    filter: url(#glow-white);
 }

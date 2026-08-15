@@ -24,6 +24,18 @@
                     <stop class="stop4" offset="100%" />
                 </radialGradient>
             </defs>
+            <filter id="glow-white">
+                <feFlood flood-color="rgb(255,255,255)" flood-opacity="0.5" in="SourceGraphic" />
+                <feComposite operator="in" in2="SourceGraphic" />
+                <feGaussianBlur stdDeviation="3" />
+                <feComponentTransfer result="glow1">
+                    <feFuncA type="linear" slope="4" intercept="0" />
+                </feComponentTransfer>
+                <feMerge>
+                    <feMergeNode in="glow1" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
             <g id="board-transform">
                 <g id="board-bg"></g>
                 <g id="cells"></g>
