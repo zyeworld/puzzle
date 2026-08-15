@@ -1,9 +1,11 @@
 //@ts-nocheck
-import { cancel_last_move } from "./hexo.js";
+import { undo_last, draw_board } from "./hexo.js";
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'z' || e.code === 'ArrowLeft') {
+    if (e.key === 'z' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        cancel_last_move();
+        undo_last();
+    } else if (e.key === 'r') {
+        draw_board([]);
     }
 })

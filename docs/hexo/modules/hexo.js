@@ -105,7 +105,7 @@ function add_cell(i, j, status) {
         // Only click when not dragging
         if (is_dragging()) return;
         if (this.dataset.status === Status.empty)
-            play_cell(i, j);
+            play_move(i, j);
     });
     
     E_cells.appendChild(cell);
@@ -130,7 +130,7 @@ export function initialize_board() {
  * @param {number} i
  * @param {number} j
  */
-export function play_cell(i, j) {
+export function play_move(i, j) {
     // TODO: check integrity
     const move = {
         coord: [i, j],
@@ -172,7 +172,7 @@ export function play_cell(i, j) {
  * @param {number} i
  * @param {number} j
  */
-export function cancel_cell(i, j) {    
+export function undo_move(i, j) {    
     const E_cell = get_cell(i, j);
     if (!E_cell) return;
 
@@ -223,11 +223,11 @@ export function cancel_cell(i, j) {
 /**
  * Cancel the last move
  */
-export function cancel_last_move() {
+export function undo_last() {
     if (board.length === 0) return;
 
     const coord = board[board.length - 1].coord;
-    cancel_cell(coord[0], coord[1]);
+    undo_move(coord[0], coord[1]);
 }
 
 
@@ -251,7 +251,7 @@ export function draw_board(_board) {
         return;
     }
     _board.forEach(({ coord, player }) => {
-        play_cell(coord[0], coord[1]);
+        play_move(coord[0], coord[1]);
     });
 }
 
