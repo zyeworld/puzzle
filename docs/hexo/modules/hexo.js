@@ -186,6 +186,8 @@ export function cancel_cell(i, j) {
 
     // Empty the cell
     E_cell.dataset.status = Status.empty;
+    E_cell.classList.remove('last');
+    E_cell.classList.remove('win');
 
     // Try removing cells in every direction, at most 8 cells away
     for (let di = -8; di <= 8; di++) {
@@ -206,6 +208,15 @@ export function cancel_cell(i, j) {
     }
     if (board.length === 0) {
         initialize_board();
+        return;
+    }
+    
+    // Update "Last played" cell
+    // 1. Add last
+    get_cell(...board[board.length - 1].coord)?.classList.add('last');
+    // 2. Add 2nd-to-last if it's the same color
+    if (board.length >= 2 && (board.length % 4 === 1 || board.length % 4 === 3)) {
+        get_cell(...board[board.length - 2].coord)?.classList.add('last');
     }
 }
 
